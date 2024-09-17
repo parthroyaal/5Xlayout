@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .chart-container {
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%;
+            height: 100vh;
+        }
+
+        .chart-wrapper {
+            width: 50%;
+            height: 50%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        .chart {
+            width: 100%;
+            height: 100%;
+            border: 1px solid #ddd;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <div class="chart-container">
+        <div class="chart-wrapper">
+            <div id="chart_left_top" class="chart"></div>
+        </div>
+        <div class="chart-wrapper">
+            <div id="chart_right_top" class="chart"></div>
+        </div>
+        <div class="chart-wrapper">
+            <div id="chart_left_bottom" class="chart"></div>
+        </div>
+        <div class="chart-wrapper">
+            <div id="chart_right_bottom" class="chart"></div>
+        </div>
+    </div>
+    <script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
+    <script>
+        // Sample data for each chart
+        const chartData = {
+            leftTop: [
+                { time: '2023-10-26', value: 80.01 },
+                { time: '2023-10-27', value: 96.63 },
+                { time: '2023-10-28', value: 76.64 },
+                { time: '2023-10-29', value: 81.89 },
+            ],
+            rightTop: [
+                { time: '2023-10-26', value: 100.01 },
+                { time: '2023-10-27', value: 110.63 },
+                { time: '2023-10-28', value: 90.64 },
+                { time: '2023-10-29', value: 105.89 },
+            ],
+            leftBottom: [
+                { time: '2023-10-26', value: 60.01 },
+                { time: '2023-10-27', value: 70.63 },
+                { time: '2023-10-28', value: 50.64 },
+                { time: '2023-10-29', value: 65.89 },
+            ],
+            rightBottom: [
+                { time: '2023-10-26', value: 120.01 },
+                { time: '2023-10-27', value: 130.63 },
+                { time: '2023-10-28', value: 110.64 },
+                { time: '2023-10-29', value: 125.89 },
+            ]
+        };
+/*
+        // Function to create a chart
+        function createChart(containerId, data) {
+            const chart = LightweightCharts.createChart(document.getElementById(containerId), { 
+                width: 400, 
+                height: 300 
+            });
+
+            const lineSeries = chart.addLineSeries();
+            lineSeries.setData(data); 
+        }
+
+*/    
+        // Function to create a chart
+        function createChart(containerId, data) {
+            const chartContainer = document.getElementById(containerId);
+            const chart = LightweightCharts.createChart(chartContainer, { 
+                width: chartContainer.offsetWidth, // Get width of the container
+                height: chartContainer.offsetHeight // Get height of the container
+            });
+
+            const lineSeries = chart.addLineSeries();
+            lineSeries.setData(data);
+
+            // Resize the chart when the container resizes
+            window.addEventListener('resize', () => {
+                chart.resize(chartContainer.offsetWidth, chartContainer.offsetHeight);
+            });
+        }
+
+/* Docstring
+Getting Container Dimensions:
+const chartContainer = document.getElementById(containerId); retrieves the container element for the chart.
+chartContainer.offsetWidth and chartContainer.offsetHeight get the width and height of the container element.
+These dimensions are passed to LightweightCharts.createChart() so the chart is initially sized correctly.
+Resizing on Window Resize:
+window.addEventListener('resize', () => { ... }); adds a listener for window resize events.
+Inside the listener, chart.resize(chartContainer.offsetWidth, chartContainer.offsetHeight); updates the chart's size to match the container's new dimensions.
+*/
+
+
+        // Create charts
+        createChart("chart_left_top", chartData.leftTop);
+        createChart("chart_right_top", chartData.rightTop);
+        createChart("chart_left_bottom", chartData.leftBottom);
+        createChart("chart_right_bottom", chartData.rightBottom);
+    </script>
+</body>
+</html>

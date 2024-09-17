@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .tab-link.active {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Links
+    -->
+    <nav>
+        <a href="#section1" class="tab-link active">Section 1</a>
+        <a href="#section2" class="tab-link">Section 2</a>
+        <a href="#section3" class="tab-link">Section 3</a>
+    </nav>
+
+    <!-- Tab Content Sections
+ -->
+    <div id="section1" class="tab-content active">
+        <h2>Section 1 Content</h2>
+        <p>This is the content for section 1.</p>
+    </div>
+    <div id="section2" class="tab-content">
+        <h2>Section 2 Content</h2>
+        <p>This is the content for section 2.</p>
+    </div>
+    <div id="section3" class="tab-content">
+        <h2>Section 3 Content</h2>
+        <p>This is the content for section 3.</p>
+    </div>
+
+<!-- 
+The tab-link class represents the links that trigger switching between sections.
+The tab-content class represents the sections that are shown/hidden.
+The active class is used to mark the currently visible section and the highlighted link. Only the section with the active class will be visible.
+
+-->
+
+
+<!-- JavaScript for Hiding and Showing Sections
+ -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const tabLinks = document.querySelectorAll(".tab-link");
+            const tabContents = document.querySelectorAll(".tab-content");
+
+            tabLinks.forEach(link => {
+                link.addEventListener("click", function (event) {
+                    event.preventDefault();
+                    
+                    // Remove active class from all tab links and contents
+                    tabLinks.forEach(link => link.classList.remove("active"));
+                    tabContents.forEach(content => content.classList.remove("active"));
+
+                    // Add active class to clicked link and the corresponding content
+                    this.classList.add("active");
+                    const targetId = this.getAttribute("href").substring(1);
+                    const targetContent = document.getElementById(targetId);
+                    if (targetContent) {
+                        targetContent.classList.add("active");
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

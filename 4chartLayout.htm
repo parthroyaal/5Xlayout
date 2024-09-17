@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .chart-container {
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%;
+            height: 100vh;
+        }
+
+        .chart-wrapper {
+            width: 50%;
+            height: 50%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        .chart {
+            width: 100%;
+            height: 100%;
+            border: 1px solid #ddd;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <div class="chart-container">
+        <div class="chart-wrapper">
+            <div id="chart_left_top" class="chart"></div>
+        </div>
+        <div class="chart-wrapper">
+            <div id="chart_right_top" class="chart"></div>
+        </div>
+        <div class="chart-wrapper">
+            <div id="chart_left_bottom" class="chart"></div>
+        </div>
+        <div class="chart-wrapper">
+            <div id="chart_right_bottom" class="chart"></div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Sample chart data
+        const chartData = {
+            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+            datasets: [{
+                label: 'My First Dataset',
+                data: [65, 59, 80, 81, 56, 55, 40],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)',
+                    'rgba(0, 0, 0, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(0, 0, 0, 1)'
+                ],
+                borderWidth: 1
+            }]
+        };
+
+        // Chart configurations
+        const chartConfig = {
+            type: 'bar',
+            data: chartData,
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        };
+
+        // Create charts using Chart.js
+        const chart1 = new Chart(document.getElementById('chart_left_top'), chartConfig);
+        const chart2 = new Chart(document.getElementById('chart_right_top'), chartConfig);
+        const chart3 = new Chart(document.getElementById('chart_left_bottom'), chartConfig);
+        const chart4 = new Chart(document.getElementById('chart_right_bottom'), chartConfig);
+    </script>
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .tab-link.active {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="#section1" class="tab-link active">Section 1: charts5sec</a>
+        <a href="#section2" class="tab-link">Section 2: charts10sec</a>
+        <a href="#section3" class="tab-link">Section 3: charts15sec</a>
+        <a href="#section4" class="tab-link">Section 4: charts30sec</a>
+        <a href="#section5" class="tab-link">Section 5: charts1minute</a>
+        <a href="#section6" class="tab-link">Section 6: charts5minute</a>
+        <a href="#section7" class="tab-link">Section 7: charts10minute</a>
+        <a href="#section8" class="tab-link">Section 8: charts15minute</a>
+        <a href="#section9" class="tab-link">Section 9: charts30minute</a>
+    </nav>
+
+    <div id="section1" class="tab-content active">
+        <h2>Section 1 Content</h2>
+        <p>This is the content for charts5sec.</p>
+    </div>
+    <div id="section2" class="tab-content">
+        <h2>Section 2 Content</h2>
+        <p>This is the content for charts10sec.</p>
+    </div>
+    <div id="section3" class="tab-content">
+        <h2>Section 3 Content</h2>
+        <p>This is the content for charts15sec.</p>
+    </div>
+    <div id="section4" class="tab-content">
+        <h2>Section 4 Content</h2>
+        <p>This is the content for charts30sec.</p>
+    </div>
+    <div id="section5" class="tab-content">
+        <h2>Section 5 Content</h2>
+        <p>This is the content for charts1minute.</p>
+    </div>
+    <div id="section6" class="tab-content">
+        <h2>Section 6 Content</h2>
+        <p>This is the content for charts5minute.</p>
+    </div>
+    <div id="section7" class="tab-content">
+        <h2>Section 7 Content</h2>
+        <p>This is the content for charts10minute.</p>
+    </div>
+    <div id="section8" class="tab-content">
+        <h2>Section 8 Content</h2>
+        <p>This is the content for charts15minute.</p>
+    </div>
+    <div id="section9" class="tab-content">
+        <h2>Section 9 Content</h2>
+        <p>This is the content for charts30minute.</p>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const tabLinks = document.querySelectorAll(".tab-link");
+            const tabContents = document.querySelectorAll(".tab-content");
+
+            // Function to open a specific section
+            function openSection(index) {
+                tabLinks.forEach(link => link.classList.remove("active"));
+                tabContents.forEach(content => content.classList.remove("active"));
+
+                const targetLink = tabLinks[index - 1];
+                const targetContent = tabContents[index - 1];
+
+                if (targetLink && targetContent) {
+                    targetLink.classList.add("active");
+                    targetContent.classList.add("active");
+                }
+            }
+
+            // Add click event listeners to the tabs
+            tabLinks.forEach(link => {
+                link.addEventListener("click", function (event) {
+                    event.preventDefault();
+                    
+                    const targetId = this.getAttribute("href").substring(1);
+                    const targetContent = document.getElementById(targetId);
+                    
+                    if (targetContent) {
+                        openSection([...tabLinks].indexOf(link) + 1);
+                    }
+                });
+            });
+
+            // Add keyboard shortcuts for Ctrl+1 to Ctrl+9
+            document.addEventListener("keydown", function(event) {
+                if (event.ctrlKey && event.key >= '1' && event.key <= '9') {
+                    const sectionNumber = parseInt(event.key);
+                    if (sectionNumber >= 1 && sectionNumber <= 9) {
+                        openSection(sectionNumber);
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
